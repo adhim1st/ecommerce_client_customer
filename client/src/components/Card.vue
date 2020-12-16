@@ -34,8 +34,24 @@ export default {
       }
       if (alreadyInCart == false) {
         this.$store.dispatch("createItem", this.card.id);
+        this.$toasted.show("Product added to cart", {
+          theme: "outline",
+          icon: {
+            name: "shopping-cart",
+          },
+          position: "top-right",
+          duration: 3000,
+        });
       } else if (alreadyInCart == true) {
         this.$store.dispatch("increaseItem", this.card.id);
+        this.$toasted.show("Already in cart", {
+          theme: "outline",
+          icon: {
+            name: "cart-plus",
+          },
+          position: "top-right",
+          duration: 3000,
+        });
       }
     },
     fetchCartItem() {

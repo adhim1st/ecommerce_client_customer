@@ -50,8 +50,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.access_token;
-  if (to.name !== "Login" && !isAuthenticated) next({ name: "Login" });
-  else if (to.name == "Login" && isAuthenticated) next({ name: "Home" });
+  if (to.name == "Login" && isAuthenticated) next({ name: "Home" });
   else if (to.name == "Register" && isAuthenticated) next({ name: "Home" });
   else next();
 });

@@ -60,6 +60,14 @@ export default {
         password: this.password,
       };
       this.$store.dispatch("register", payload);
+      this.$toasted.show("Successfuly Registered", {
+        theme: "outline",
+        icon: {
+          name: "user-plus",
+        },
+        position: "top-right",
+        duration: 3000,
+      });
     },
   },
 };

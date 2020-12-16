@@ -79,12 +79,36 @@ export default {
   methods: {
     increaseItem() {
       this.$store.dispatch("increaseItem", this.item.ProductId);
+      this.$toasted.show("Item Increased", {
+        theme: "outline",
+        icon: {
+          name: "plus-circle",
+        },
+        position: "top-right",
+        duration: 3000,
+      });
     },
     decreaseItem() {
       this.$store.dispatch("decreaseItem", this.item.ProductId);
+      this.$toasted.show("Item Decreased", {
+        theme: "outline",
+        icon: {
+          name: "minus-circle",
+        },
+        position: "top-right",
+        duration: 3000,
+      });
     },
     deleteItem() {
       this.$store.dispatch("deleteItem", this.item.ProductId);
+      this.$toasted.show("Item Deleted", {
+        theme: "outline",
+        icon: {
+          name: "trash-alt",
+        },
+        position: "top-right",
+        duration: 3000,
+      });
     },
   },
   computed: {},

@@ -1,7 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" @click="showHome" href="">BarBeKu</a>
+      <a class="navbar-brand" @click="showHome" href=""
+        ><i class="fas fa-home"></i> BarBeKu</a
+      >
       <button
         class="navbar-toggler"
         type="button"
@@ -27,7 +29,10 @@
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown">
+          <li
+            v-show="$route.name !== 'Login' && $route.name !== 'Register'"
+            class="nav-item dropdown"
+          >
             <a
               class="nav-link dropdown-toggle"
               href="#"

@@ -140,6 +140,7 @@ export default new Vuex.Store({
       })
         .then((response) => {
           console.log(response.data);
+          context.dispatch("fetchCartItem");
         })
         .catch((err) => {
           console.log(err);
