@@ -34,12 +34,14 @@
             class="nav-item dropdown"
           >
             <a
+              v-show="checkLogged"
               class="nav-link dropdown-toggle"
               href="#"
               id="navbarDropdown"
               role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
+              disabled="true"
             >
               <i class="fas fa-user-circle"></i> My Account
             </a>
@@ -47,6 +49,11 @@
               <li>
                 <a @click="showCart" class="dropdown-item" href=""
                   ><i class="fas fa-shopping-cart"></i> Cart</a
+                >
+              </li>
+              <li>
+                <a @click="showWishlist" class="dropdown-item" href=""
+                  ><i class="fas fa-heart"></i> Wishlist</a
                 >
               </li>
               <li>
@@ -70,6 +77,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      loggedIn: false,
+    };
+  },
   methods: {
     showHome() {
       this.$router.push("/");
@@ -86,10 +98,19 @@ export default {
     showHistory() {
       this.$router.push("/history");
     },
+    showWishlist() {
+      this.$router.push("/wishlist");
+    },
     logout() {
       this.$store.dispatch("logout");
     },
   },
+  computed: {
+    checkLogged() {
+      return this.$store.getters.checkLogin;
+    },
+  },
+  created() {},
 };
 </script>
 

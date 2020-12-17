@@ -6,6 +6,7 @@ import Register from "../views/Register.vue";
 import NoPage from "../components/NoPage.vue";
 import Cart from "../views/Cart.vue";
 import History from "../views/History.vue";
+import WishList from "../views/WishList.vue";
 
 Vue.use(VueRouter);
 
@@ -34,6 +35,11 @@ const routes = [
     path: "/history",
     name: "History",
     component: History,
+  },
+  {
+    path: "/wishlist",
+    name: "WishList",
+    component: WishList,
   },
   {
     path: "*",

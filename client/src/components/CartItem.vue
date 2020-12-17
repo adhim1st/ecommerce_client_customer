@@ -78,26 +78,49 @@ export default {
   },
   methods: {
     increaseItem() {
-      this.$store.dispatch("increaseItem", this.item.ProductId);
-      this.$toasted.show("Item Increased", {
-        theme: "outline",
-        icon: {
-          name: "plus-circle",
-        },
-        position: "top-right",
-        duration: 3000,
-      });
+      if (this.item.quantity >= this.item.Product.stock) {
+        this.$toasted.show("No More Stock Available", {
+          theme: "outline",
+          icon: {
+            name: "box",
+          },
+          position: "top-right",
+          duration: 3000,
+        });
+      } else {
+        this.$store.dispatch("increaseItem", this.item.ProductId);
+        this.$toasted.show("Item Increased", {
+          theme: "outline",
+          icon: {
+            name: "plus-circle",
+          },
+          position: "top-right",
+          duration: 3000,
+        });
+      }
     },
     decreaseItem() {
-      this.$store.dispatch("decreaseItem", this.item.ProductId);
-      this.$toasted.show("Item Decreased", {
-        theme: "outline",
-        icon: {
-          name: "minus-circle",
-        },
-        position: "top-right",
-        duration: 3000,
-      });
+      console.log(this.item.quantity);
+      if (this.item.quantity <= 1) {
+        this.$toasted.show("Minimum 1 Quantity", {
+          theme: "outline",
+          icon: {
+            name: "boxes",
+          },
+          position: "top-right",
+          duration: 3000,
+        });
+      } else {
+        this.$store.dispatch("decreaseItem", this.item.ProductId);
+        this.$toasted.show("Item Decreased", {
+          theme: "outline",
+          icon: {
+            name: "minus-circle",
+          },
+          position: "top-right",
+          duration: 3000,
+        });
+      }
     },
     deleteItem() {
       this.$store.dispatch("deleteItem", this.item.ProductId);

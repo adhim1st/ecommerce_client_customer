@@ -11,6 +11,8 @@ export default new Vuex.Store({
     role: {},
     cartItem: [],
     decStat: false,
+    wishList: [],
+    login: false,
   },
   mutations: {
     setProductData(state, payload) {
@@ -21,6 +23,15 @@ export default new Vuex.Store({
     },
     setCartItem(state, payload) {
       state.cartItem = payload;
+    },
+    setWishlist(state, payload) {
+      state.wishList = payload;
+    },
+    setLogin(state) {
+      state.login = true;
+    },
+    setLogout(state) {
+      state.login = false;
     },
   },
   actions: {
@@ -33,11 +44,13 @@ export default new Vuex.Store({
         .then((response) => {
           localStorage.setItem("access_token", response.data.access_token);
           router.push("/");
+          router.go();
         })
         .catch((err) => console.log(err));
     },
-    logout() {
+    logout(context) {
       localStorage.removeItem("access_token");
+      context.commit("setLogout");
       router.push("/login");
     },
     register(context, payload) {
@@ -107,6 +120,14 @@ export default new Vuex.Store({
         .then((response) => {
           console.log(response.data);
           context.dispatch("fetchCartItem");
+          this.$toasted.show("Item Increased", {
+            theme: "outline",
+            icon: {
+              name: "plus-circle",
+            },
+            position: "top-right",
+            duration: 3000,
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -162,6 +183,64 @@ export default new Vuex.Store({
           console.log(err);
         });
     },
+    fetchUserWishlist(context) {
+      axios({
+        method: "GET",
+        url: "/wishlist",
+        headers: {
+          access_token: localStorage.getItem("access_token"),
+        },
+      })
+        .then((response) => {
+          console.log(response.data);
+          context.commit("setWishlist", response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    createWish(context, id) {
+      axios({
+        method: "POST",
+        url: "/wishlist",
+        data: { ProductId: id },
+        headers: {
+          access_token: localStorage.getItem("access_token"),
+        },
+      })
+        .then((response) => {
+          console.log(response.data);
+          context.dispatch("fetchUserWishlist");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    deleteWish(context, id) {
+      axios({
+        method: "DELETE",
+        url: `/wishlist/${id}`,
+        headers: {
+          access_token: localStorage.getItem("access_token"),
+        },
+      })
+        .then((response) => {
+          console.log(response.data);
+          context.dispatch("fetchUserWishlist");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   modules: {},
+  getters: {
+    checkLogin: (state) => {
+      if (localStorage.getItem("access_token")) {
+        return (state.login = true);
+      } else {
+        return (state.login = false);
+      }
+    },
+  },
 });
