@@ -232,7 +232,7 @@ Response:
 }
 ```
 
-### POST /cart/increase
+### PUT /cart/increase
 
 Description: Increase quantity of item Cart by 1
 
@@ -272,7 +272,7 @@ Response:
 ]
 ```
 
-### POST /cart/decrease
+### PUT /cart/decrease
 
 Description: Decrease quantity of item Cart by 1
 
@@ -356,5 +356,98 @@ Response:
   ​
 
 ```json
+[
+  {
+    "UserId": 2,
+    "ProductId": 10,
+    "status": "true",
+    "createdAt": "2020-12-17T05:55:45.776Z",
+    "updatedAt": "2020-12-17T05:55:45.776Z",
+    "Product": {
+      "id": 10,
+      "name": "Samsung Note 20",
+      "image_url": "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-note20-1.jpg",
+      "price": 2200000,
+      "stock": 10,
+      "createdAt": "2020-12-16T05:05:13.673Z",
+      "updatedAt": "2020-12-16T05:05:13.673Z"
+    }
+  },
+  {
+    "UserId": 2,
+    "ProductId": 8,
+    "status": "true",
+    "createdAt": "2020-12-17T05:55:46.501Z",
+    "updatedAt": "2020-12-17T05:55:46.501Z",
+    "Product": {
+      "id": 8,
+      "name": "iphone",
+      "image_url": "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-12-r1.jpg",
+      "price": 100,
+      "stock": 10,
+      "createdAt": "2020-12-14T17:00:00.000Z",
+      "updatedAt": "2020-12-14T17:00:00.000Z"
+    }
+  }
+]
+```
 
+### POST /wishlist
+
+Description: Create item Wishlist
+
+Request:
+
+- headers:
+  - access_token: string
+- body:
+
+```json
+{
+  "ProductId": "9"
+}
+```
+
+Response:
+
+- status: 201
+- body:
+  ​
+
+```json
+{
+  "UserId": 2,
+  "ProductId": 9,
+  "updatedAt": "2020-12-17T05:59:37.049Z",
+  "createdAt": "2020-12-17T05:59:37.049Z",
+  "status": "true"
+}
+```
+
+### DELETE /wishlist/:id
+
+Description: Delete Wishlist by ProductId
+
+Request:
+
+- headers:
+  - access_token: string
+- params:
+
+```json
+{
+  "id": "10"
+}
+```
+
+Response:
+
+- status: 201
+- body:
+  ​
+
+```json
+{
+  "message": "successfully delete a wishlist item"
+}
 ```
